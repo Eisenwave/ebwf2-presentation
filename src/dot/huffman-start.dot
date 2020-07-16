@@ -1,0 +1,8 @@
+graph g {
+    node [shape = rectangle];
+    e [label="e:0.4"];
+    t [label="t:0.3"];
+    a [label="a:0.2"];
+    o [label="o:0.05"];
+    i [label="i:0.05"];
+} 

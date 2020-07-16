@@ -17,11 +17,341 @@
 
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
+
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
+
 </head>
 <body>
 
-<section style="margin-top: 0">
-    <h1 id="heading-top" data-type="slide-header">TOPIC</h1>
+<section class="section-first">
+    <h1 id="h-top" data-type="slide-header">Compression</h1>
+    <div class="titles">
+
+        <h1 class="no-margin" style=" font-weight: 900; font-size: 200%">COMPRESSION</h1>
+        <h4 class="no-margin" style="margin: 0.5em 0 2em">Presentation for EBWF-2, TU-Dresden
+        </h4>
+        <p class="no-margin" style="font-size: 125%">Jan Schultke, Bach. CompSc</p>
+        <p class="no-margin" style="font-size: 100%; font-weight: bold"><span class="mono">2020-07-16</span></p>
+
+        <p style="margin-top: 8em; font-size: 50%;">Background Source:
+            https://wallup.net/data-exchange-and-global-network-over-the-world-earth-at-night/</p>
+    </div>
+</section>
+
+<section>
+    <h2 id="h-relevancy" data-type="slide-header">Compression: More Relevant than Ever</h2>
+
+    <style>
+        .relev-img {
+            width: 420px;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .relev-table {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 0.5em;
+            border-spacing: 6em 1em;
+        }
+    </style>
+
+    <div style="display: block; margin-top: 0">
+        <table class="relev-table">
+            <tr>
+                <td>
+                    <a href="https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg">
+                        <img class="relev-img"
+                             src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg"/><br>
+                        <span>Image</span>
+                    </a>
+                </td>
+                <td >
+                    <a href="data:image/png;base64,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">
+                        <img class="relev-img"
+                             src="data:image/png;base64,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"/><br>
+                        <span>Audio/Video</span>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Science-archive-data.jpg/1021px-Science-archive-data.jpg">
+                        <img class="relev-img"
+                             src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Science-archive-data.jpg/1021px-Science-archive-data.jpg"/><br>
+                        <span>Archiving</span>
+                    </a>
+                </td>
+                <td>
+                    <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Internet-web-browser.svg/600px-Internet-web-browser.svg.png">
+                        <img class="relev-img"
+                             src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Internet-web-browser.svg/600px-Internet-web-browser.svg.png"/><br>
+                        <span>Web</span>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</section>
+
+<section>
+    <h1 id="h-structure" data-type="slide-header">Research Question and Structure</h1>
+    <h3 style="margin-left: 1em">How can Compression Help Combat the Ever-Increasing Amount of Data in the World?</h3>
+    <ol style="font-size: 125%">
+        <li>Lossless Compression
+            <ol>
+                <li>Run-Length Encoding</li>
+                <li>Lempel-Ziv Compression</li>
+                <li>Huffman Coding</li>
+            </ol>
+        </li>
+        <li>Lossy Compression
+            <ol>
+                <li>JPEG</li>
+                <li>MP4</li>
+            </ol>
+        </li>
+        <li>State of the Art / Research</li>
+    </ol>
+</section>
+
+<section>
+    <h1 id="h-rle" data-type="slide-header">Run-Length Encoding</h1>
+    <ul style="font-size: 125%">
+        <li>First used in 1950s for transmitting TV signals</li>
+        <li><b>Input:</b> string of characters</li>
+        <li><b>Output:</b> string of pairs (character, run-length)</li>
+        <li><b>Strategy:</b> collect long runs of characters into one marker</li>
+    </ul>
+    <div style="margin-left: 0; font-size: 125%">
+        <div data-reveal="1">
+            <h3 style="text-align: center">Example</h3>
+            \[abaaaaaabbbbb \rightarrow (a,1)(b,1)(a,6)(b,5)\]
+        </div>
+
+        <div data-reveal="2">
+            <h3 style="text-align: center">Example with Character-Pair RLE</h3>
+
+            \[\begin{align}
+            ababababbaaaab &\rightarrow (ab,4)(ba,1)(aa,1)(ab,1)
+            \end{align}
+            \]
+        </div>
+
+    </div>
+
+</section>
+
+<section>
+    <h1 id="h-lz77" data-type="slide-header">Lempel-Ziv Compression (LZ77)</h1>
+    <ul style="font-size: 125%">
+        <li>Developed by Abraham Lempel, Jacob Ziv in 1977</li>
+        <li><b>Input:</b> string of characters</li>
+        <li><b>Output:</b> string of pairs (backwards-distance, length)</li>
+        <li><b>Strategy:</b> convert repeated words to backwards-references</li>
+    </ul>
+    <div style="margin-left: 0; font-size: 125%">
+        <div data-reveal="1">
+            <h3 style="text-align: center">Example Input</h3>
+            \[\text{THE BROWN ELEPHANT IS THE BEST ELEPHANT}\]
+        </div>
+        <div data-reveal="2">
+            <h3 style="text-align: center">Example Output</h3>
+            \[\text{THE BROWN ELEPHANT IS }(22,3)\text{ BEST }(21,8)\]
+        </div>
+
+    </div>
+
+</section>
+
+<section>
+    <h1 id="h-huffman-1" data-type="slide-header">Huffman Coding</h1>
+
+    <ul style="font-size: 125%">
+        <li>Developed by David A. Huffman, 1951</li>
+        <li><b>Input:</b> set of character and their probabilities: $(e, 12.02\%), (t,9.10\%), \ldots$</li>
+        <li><b>Output:</b> binary code for every character: $(e, 1), (t, 01), \ldots$</li>
+        <li><b>Strategy:</b> construct binary tree of characters</li>
+    </ul>
+    <img src="img/graph/huffman-start.svg" class="centered"
+         style="width: 30em; height: auto; margin-top: 7em" data-reveal="1"/>
+</section>
+
+<section>
+    <h1 id="h-huffman-2" data-type="slide-header">Huffman Coding</h1>
+
+    <img src="img/graph/huffman-1.svg" class="centered"
+         style="width: 30em; height: auto; margin-top: 1em"/>
+</section>
+
+<section>
+    <h1 id="h-huffman-3" data-type="slide-header">Huffman Coding</h1>
+
+    <img src="img/graph/huffman-2.svg" class="centered"
+         style="width: 30em; height: auto; margin-top: 1em"/>
+</section>
+
+<section>
+    <h1 id="h-huffman-4" data-type="slide-header">Huffman Coding</h1>
+
+    <img src="img/graph/huffman-3.svg" class="centered"
+         style="width: 30em; height: auto; margin-top: 1em"/>
+</section>
+
+<section>
+    <h1 id="h-huffman-5" data-type="slide-header">Huffman Coding</h1>
+
+    <img src="img/graph/huffman-4.svg" class="centered"
+         style="width: 30em; height: auto; margin-top: 1em"/>
+</section>
+
+<section>
+    <h1 id="h-huffman-final" data-type="slide-header">Huffman Coding</h1>
+
+    <img src="img/graph/huffman-final.svg" class="centered"
+         style="width: 25em; height: auto; margin-top: 1em"/>
+</section>
+
+<section>
+    <h1 id="h-huffman-code" data-type="slide-header">Huffman Coding</h1>
+
+    <img src="img/graph/huffman-code.svg" class="centered"
+         style="width: 21em; height: auto; margin-top: 1em"/>
+</section>
+
+<section>
+    <h1 id="h-jpeg" data-type="slide-header">JPEG / Discrete Cosine Transform</h1>
+
+    <ul style="font-size: 125%">
+        <li>DCT first developed by Nasir Ahmend in 1972</li>
+        <li><b>Input:</b> 8x8 block of pixels</li>
+        <li><b>Output:</b> combination of 64 discrete cosine patterns</li>
+        <li><b>Strategy:</b> convert 8x8 blocks of pixels using DCT</li>
+    </ul>
+    <div style="margin-top: 0.5em">
+        <div data-reveal="1">
+            <img src="img/dctjpeg_single.png" class="centered"
+                 style="width: 8em; height: auto;  margin-left: 2em; float: left"/>
+            <img src="https://www.mathsisfun.com/algebra/images/cosine-graph.svg" style="float: left">
+        </div>
+        <div data-reveal="2">
+            <img src="img/dctjpeg.png" class="centered"
+                 style="width: 14em; height: auto;  margin-right: 2em; float: right"/>
+            <p style="float: left; margin-top: 3.5em; font-size: 80%; margin-left: 3em">
+                <b>Sources:</b><br>
+                https://en.wikipedia.org/wiki/JPEG#/media/File:Dctjpeg.png<br>
+                https://www.mathsisfun.com/algebra/trig-sin-cos-tan-graphs.html
+            </p>
+        </div>
+    </div>
+
+</section>
+
+<section>
+    <h1 id="h-video" data-type="slide-header">Video Compression</h1>
+
+    <ul style="font-size: 125%">
+        <li>Early example: H.261 developed by the Video Coding Experts Group, 1988</li>
+        <li><b>Input:</b> sequence of video frames</li>
+        <li><b>Output:</b> sequence of compressed frames</li>
+    </ul>
+    <div data-reveal="1">
+        <div style="margin-left: 2em; float: left">
+            <h3>Types of Frames</h3>
+            <ul>
+                <li><b>I-Frame:</b> Intra-Coded Frame</li>
+                <li><b>P-Frame:</b> Predicted Frame</li>
+                <li><b>B-Frame:</b> Bid. Predicted Frame</li>
+            </ul>
+        </div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/I_P_and_B_frames.svg/1280px-I_P_and_B_frames.svg.png"
+             style="width: 30em; height: auto; margin-top: 4em; margin-right: 2em; float: right">
+    </div>
+</section>
+
+<section>
+    <h1 id="h-outlook" data-type="slide-header">State of the Art Compression</h1>
+    <div style="font-size: 90%; margin-left: 2em">
+        <h3>Image: Google - WEBP</h3>
+        <img src="https://developers.google.com/speed/webp/images/webplogo.png" class="outlook-logo">
+        <p>
+            Free and open source image codec<br>
+            <a href="https://developers.google.com/speed/webp" style="padding-top: 1em">https://developers.google.com/speed/webp</a>
+        </p>
+
+        <h3>Video: AOM - AV1</h3>
+        <img src="https://aomedia.org/assets/images/home-av1-500x200.png" class="outlook-logo">
+        <p>
+            Free and open source video codec, state of the art<br>
+            <a href="https://aomedia.org/av1/" style="padding-top: 1em">https://aomedia.org/av1/</a>
+        </p>
+
+        <h3>Audio: IETF codec working group - Opus</h3>
+        <img src="https://opus-codec.org/assets/img/opus-logo.svg" class="outlook-logo">
+        <p>
+            Audio codec, especially good at low quality<br>
+            <a href="https://opus-codec.org/" style="padding-top: 1em">https://opus-codec.org/</a>
+        </p>
+
+        <h3>General Purpose: Facebook - Zstandard</h3>
+        <img src="https://raw.githubusercontent.com/facebook/zstd/dev/doc/images/zstd_logo86.png" class="outlook-logo">
+        <p>
+            Highly efficient general purpose compression<br>
+            <a href="https://github.com/facebook/zstd" style="padding-top: 1em">https://github.com/facebook/zstd</a>
+        </p>
+
+    </div>
+
+</section>
+
+<section>
+    <h1 id="h-sources" data-type="slide-header">Sources</h1>
+    <ul>
+        <li>
+            D. Reinsel, J. Gantz, J. Rydning at the International Data Corporation:
+            <b>The Digitization of the World - From Edge to Core</b> (2018-11)
+            <a href="https://www.seagate.com/files/www-content/our-story/trends/files/idc-seagate-dataage-whitepaper.pdf">[PDF]</a>
+            <br>last visited 2020-07-15
+        </li>
+        <li>
+            D.A. Huffman in Proceedings of the I.R.E.:
+            <b>A Method for the Construction of Minimum-Redundancy Codes</b>
+            (1952-09)
+            <a href="http://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf">[PDF]</a><br>
+            last visited 2020-07-15
+        </li>
+        <li>J. ZIV, A. Lempel:
+            <b>Compression of Individual Sequences via Variable-Rate Coding</b> (1984)
+            <a href="https://www2.cs.duke.edu/courses/spring03/cps296.5/papers/ziv_lempel_1978_variable-rate.pdf">[PDF]</a>
+            <br>last visited 2020-07-15
+        </li>
+        <li>
+            V. Britanak, P. Yip, K.R. Rao:
+            <b>Discrete Cosine and Sine Transform</b> (2010-07-28)
+            <a href="https://books.google.de/books?id=iRlQHcK-r_kC&pg=PA141&redir_esc=y">[E-BOOK]</a>
+            <br>last visited 2020-07-15
+        </li>
+        <li>M. Handley at UCL: MPEG Video
+            <b>MPEG Video Compression</b> (2010)
+            <a href="http://www0.cs.ucl.ac.uk/teaching/GZ05/09-mpeg.pdf">[PDF]</a>
+            <br>last visited 2020-07-15
+        </li>
+    </ul>
+</section>
+
+<section style="margin-top: 0;  font-family: sans-serif; background-color: #111">
+    <h1 id="h-end" data-type="slide-header">The End</h1>
 
     <style>
         .no-margin {
@@ -29,16 +359,12 @@
         }
     </style>
 
-    <div class="blu-gradient"
-         style=" text-align: center; margin-top: 4em;  height: fit-content; padding: 3em 0 3em;
-         font-family: 'Noto Sans', sans-serif;">
-        <h1 class="no-margin" style=" font-weight: 900; font-size: 200%">TOPIC</h1>
-        <h4 class="no-margin" style="margin: 0.5em 0 2em">Institute,<br>TU-Dresden</h4>
-        <p class="no-margin" style="font-size: 150%">Author</p>
-        <p class="no-margin" style="font-size: 100%"><span class="mono">1970-01-01</span></p>
+    <div style=" text-align: center; padding-top: 7em; padding-bottom: 8.5em; height: fit-content;
+        backdrop-filter: blur(6px) brightness(80%); saturate(80%);
+         font-family: 'Noto Sans', sans-serif; font-size: 150%; color: white">
+        <h1 class="no-margin" style=" font-weight: 900; font-size: 200%">THANKS, GOOD LUCK CHRIS</h1>
     </div>
 </section>
-
 
 <!-------------------------------------------------- END OF CONTENT -------------------------------------------------->
 
@@ -47,8 +373,11 @@
     <img src="img/tu-dresden-logo-white.svg" alt="TU-Dresden" class="header-tu-logo"/>
 </header>
 
+<div id="slide-header-separator" class="slide-header-separator">
+</div>
+
 <div id="slide-header-right" class="slide-header-right">
-    Folie
+    Slide
     <span data-type="slide-num"></span><br>
     <span data-type="timer"></span>
 </div>
@@ -64,6 +393,5 @@
     // trigger identifying current slide and positioning correctly
     jumpSlidesRelative(0);
 </script>
-
 </body>
 </html>

@@ -1,0 +1,27 @@
+graph g {
+    bgcolor = transparent;
+    node [shape = rectangle];
+    e [label="e:0.4"];
+    t [label="t:0.3"];
+    a [label="a:0.2"];
+    o [label="o:0.05"];
+    i [label="i:0.05"];
+    
+    root [label="", style="invis"];
+    d0 [label="", style="invis"];
+    d1 [label="", style="invis"];
+    taoi [label="", style="invis"]
+    ta [label="", style="invis"];
+    oi [label=""];
+    
+    root -- d0 -- d1 -- e [style="invis"];
+    root -- taoi [label="", style="invis"];
+    
+    taoi -- ta [label="", style="invis"];
+    taoi -- oi [label="", style="invis"];
+    
+    ta -- t [style="invis"];
+    ta -- a [style="invis"];
+    oi -- o;
+    oi -- i;
+} 

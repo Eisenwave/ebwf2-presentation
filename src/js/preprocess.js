@@ -7,6 +7,7 @@ let currentReveals = null;
 
 { // HTML preprocess
     const SLIDE_HEADER_CONTAINER = document.getElementById("slide-header-container");
+    const SLIDE_HEADER_SEPARATOR = document.getElementById("slide-header-separator");
     const SLIDE_HEADER_RIGHT = document.getElementById("slide-header-right");
 
     for (let slide of document.querySelectorAll("*")) {
@@ -22,14 +23,18 @@ let currentReveals = null;
             child.className = "slide-header";
 
             let containerInstance = SLIDE_HEADER_CONTAINER.cloneNode(true);
+            let separatorInstance = SLIDE_HEADER_SEPARATOR.cloneNode(true);
             let rightInstance = SLIDE_HEADER_RIGHT.cloneNode(true);
 
             //slideHeaderInstance.setAttribute("hidden", "");
+            slide.prepend(separatorInstance);
             slide.prepend(containerInstance);
             containerInstance.appendChild(child);
             containerInstance.appendChild(rightInstance);
 
+
             containerInstance.id = "slide-header-" + index;
+            separatorInstance.id = "slide-header-separator-" + index;
             rightInstance.id = "slide-header-right-" + index;
 
             for (let element of slide.querySelectorAll("[data-type=slide-num]"))

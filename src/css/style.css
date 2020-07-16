@@ -10,13 +10,14 @@ html {
 }
 
 body {
-    max-width: 960px;
+    max-width: 1280px;
+    margin-top: 0;
     margin-left: auto;
     margin-right: auto;
     background: black;
     overflow: hidden;
 
-    font-family: "Noto Serif", sans-serif;
+    font-family: "Noto Sans", sans-serif;
     font-size: 18pt;
 }
 
@@ -69,8 +70,6 @@ ul li:before {
 section {
     max-height: 720px;
     min-height: 720px;
-    border-bottom: #CC0000;
-    border-bottom-style: dashed;
     margin-bottom: 125%;
     margin-top: 125%;
     background: white;
@@ -94,6 +93,10 @@ button {
 
 video {
     image-rendering: pixelated;
+}
+
+table {
+    font-style: inherit;
 }
 
 .centered {
@@ -124,10 +127,20 @@ video {
     font-weight: bold;
 }
 
-.li-num:before {
-    content: counters(item, ".") ".";
+.outlook-logo {
+    margin-right: 2em;
+    float: left;
+    height: 3em;
+    width: auto;
+}
+
+ol li:before {
     counter-increment: item;
-    font-weight: bold;
+    content: counter(item)". ";
+}
+
+ol ol li:before{
+    content: counters(item,".") " ";
 }
 
 .li1 {
@@ -138,6 +151,10 @@ video {
 .li2 {
     padding-top: 2px;
     padding-bottom: 2px;
+}
+
+.no-margin {
+    margin: 0;
 }
 
 .mono {
@@ -155,12 +172,12 @@ video {
 }
 
 .slide-header-container {
-    background-image: linear-gradient(to bottom, #1a5c7a, #002557);
+    background-image: linear-gradient(135deg, #1a5c7a, #002557);
     box-shadow: 0 4px 4px 0 #666;
     /*background: #002557;*/
     min-height: 48px;
     padding: 10px 0;
-    margin-bottom: 20px;
+    margin-bottom: 0;
 }
 
 .slide-header {
@@ -169,8 +186,13 @@ video {
     display: inline-block;
     color: white;
     vertical-align: center;
-    max-width: 640px;
+    max-width: 1280px;
     line-height: 125%;
+}
+
+.slide-header-separator {
+    background: linear-gradient(to right, #7cbec3, #9cd8b9);
+    height: 0.3em;
 }
 
 .slide-header-right {
@@ -198,4 +220,23 @@ video {
     height: 40px;
     color: white;
     margin: 0 20px;
+}
+
+.section-first {
+    margin-top: 0;
+    font-family: "Noto Sans", sans-serif;
+    background-image: url(https://wallup.net/wp-content/uploads/2018/09/25/572213-Vadim_Sadovski-digital_art-space-space_art-500px-network.jpg);
+}
+
+.titles {
+    text-align: left;
+    min-height: 15em;
+    padding-top: 3em;
+    padding-left: 3em;
+
+    backdrop-filter: blur(2px) brightness(80%) saturate(100%);
+
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 150%;
+    color: white
 }
